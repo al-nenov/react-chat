@@ -10,6 +10,12 @@ import NewRoomForm from "./components/NewRoomForm";
 import { tokenUrl, instanceLocator } from "./config";
 
 class App extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      messages: [],     
+    }
+  }
   componentDidMount() {
     const tokenProvider = new Chatkit.TokenProvider({
       url: tokenUrl
@@ -28,7 +34,11 @@ class App extends React.Component {
           roomId: "26994a6c-3164-452b-8cca-9db45a82a659",
           hooks: {
             onMessage: message => {
-              console.log(message.text);
+              this.setState((prevState) => {
+                return (
+                  {messages: prevState.messages.concat(message)}
+                )
+              })
             }
           }
         });
@@ -40,7 +50,7 @@ class App extends React.Component {
     return (
       <div className="app">
         <RoomList />
-        <MessageList />
+        <MessageList messages={this.state.messages} dummy={this.state.DUMMY_DATA}/>
         <SendMessageForm />
         <NewRoomForm />
       </div>

@@ -7,7 +7,6 @@ class MessageList extends React.Component {
         return (
         <div className="message-list">
             {msgs.map((message, index) => {
-                //console.log(index)
                 return (
                     <Message 
                     key={index}

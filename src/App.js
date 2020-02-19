@@ -34,15 +34,13 @@ class App extends React.Component {
           roomId: "26994a6c-3164-452b-8cca-9db45a82a659",
           hooks: {
             onMessage: message => {
-              this.setState((prevState) => {
-                return (
-                  {messages: prevState.messages.concat(message)}
-                )
+              this.setState({
+                messages: [...this.state.messages, message]
               })
             }
-          }
-        });
-      })
+          }              
+        })
+      })  
       .catch(error => console.error("error: ", error));
   }
 
@@ -50,7 +48,7 @@ class App extends React.Component {
     return (
       <div className="app">
         <RoomList />
-        <MessageList messages={this.state.messages} dummy={this.state.DUMMY_DATA}/>
+        <MessageList messages={this.state.messages} />
         <SendMessageForm />
         <NewRoomForm />
       </div>

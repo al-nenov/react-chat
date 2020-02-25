@@ -1,7 +1,22 @@
 import React from "react";
+import ReactDom from "react-dom";
 import Message from "./Message";
 
 class MessageList extends React.Component {
+
+    componentWillUpdate() {
+        const node = ReactDom.findDOMNode(this);
+        const advance = 100;
+        this.shouldScroll = node.scrollTop + node.clientHeight + advance >= node.scrollHeight;
+    }
+
+    componentDidUpdate() {
+        if(this.shouldScroll) {
+            const node = ReactDom.findDOMNode(this);
+            node.scrollTop = node.scrollHeight;
+        }        
+    }
+
     render() {
         var msgs = this.props.messages;
         return (

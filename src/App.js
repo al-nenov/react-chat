@@ -18,9 +18,10 @@ class App extends React.Component {
       joinableRooms: [],
       joinedRooms: []
     }
-    this.sendMessage = this.sendMessage.bind(this)
-    this.subscribeToRoom = this.subscribeToRoom.bind(this)
-    this.getJoinableRooms = this.getJoinableRooms.bind(this)
+    this.sendMessage = this.sendMessage.bind(this);
+    this.subscribeToRoom = this.subscribeToRoom.bind(this);
+    this.getJoinableRooms = this.getJoinableRooms.bind(this);
+    this.createRoom = this.createRoom.bind(this);
   }
   componentDidMount() {
     const tokenProvider = new Chatkit.TokenProvider({
@@ -41,6 +42,16 @@ class App extends React.Component {
       
   }
 
+  // Create room
+  createRoom(roomName) {
+    this.currentUser.createRoom({
+      id: roomName,
+      name: roomName
+    })
+    .then((room) => {
+      this.subscribeToRoom(room.id)
+    })
+  }
   // Get rooms
   getJoinableRooms() {    
     this.currentUser.getJoinableRooms()
@@ -91,7 +102,7 @@ class App extends React.Component {
         />
         <MessageList messages={this.state.messages} />
         <SendMessageForm sendMessage={this.sendMessage}/>
-        <NewRoomForm />
+        <NewRoomForm createRoom={this.createRoom}/>
       </div>
     );
   }

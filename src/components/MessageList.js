@@ -18,6 +18,15 @@ class MessageList extends React.Component {
     }
 
     render() {
+        if(!this.props.roomId) {
+            return (
+                <div className="message-list">
+                    <div className="join-room">
+                        &larr; Join or create a room!
+                    </div>
+                </div>
+            )
+        }
         var msgs = this.props.messages;
         return (
         <div className="message-list">

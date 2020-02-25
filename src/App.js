@@ -101,7 +101,7 @@ class App extends React.Component {
           rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]}
         />
         <MessageList roomId={this.state.roomId} messages={this.state.messages} />
-        <SendMessageForm disabled={!this.props.roomId}  sendMessage={this.sendMessage}/>
+        <SendMessageForm disabled={!this.state.roomId}  sendMessage={this.sendMessage}/>
         <NewRoomForm createRoom={this.createRoom}/>
       </div>
     );
